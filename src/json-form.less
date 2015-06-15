@@ -1,0 +1,79 @@
+
+.jsonForm {
+
+	.checkbox input[type="checkbox"]:not(:checked) + label:before {
+		background-color: white;
+	}
+
+	input:disabled {
+		cursor: default;
+	}
+
+	input[type=number]::-webkit-inner-spin-button,
+	input[type=number]::-webkit-outer-spin-button {
+	    -webkit-appearance: none;
+	    margin: 0;
+	}
+
+	.checkbox input[type=checkbox] {
+		display: inline-block;
+		transform: translateX(21px);
+		outline: none;
+	}
+
+	.form-control-feedback {
+		top: 0px;
+	}
+
+	textarea {
+		resize: none;
+	}
+
+	.is-relative{
+		position:relative;
+	}
+
+	.is-centered {
+		-ms-flex-align: center;
+		-webkit-align-items: center;
+		align-items: center;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-flex-direction: row;
+		-ms-flex-direction: row;
+		flex-direction: row;
+	}
+
+	.password-options {
+		margin-top: 10px;
+		-ms-flex-pack: justify;
+		-webkit-justify-content: space-between;
+		justify-content: space-between;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-flex-direction: row;
+		-ms-flex-direction: row;
+		flex-direction: row;
+	}
+
+	.error-message {
+		position: absolute;
+  		font-size: .9em;
+	}
+
+	.btn.file {
+    	display: inline-block;
+		font: normal normal normal 14px/1 FontAwesome;
+		font-size: inherit;
+		text-rendering: auto;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		transform: translate(0, 0);
+
+		&:before{
+			content: "\f093";
+		}
+	}
+} 

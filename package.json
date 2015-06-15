@@ -1,0 +1,33 @@
+{
+  "name": "json-form",
+  "version": "0.0.0",
+  "description": "dynamic angular forms generated from a json",
+  "main": "dist/json-form.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mulesoft-labs/json-form.git"
+  },
+  "keywords": [
+    "angular",
+    "bootstrap",
+    "json",
+    "form",
+    "dynamic"
+  ],
+  "author": "Juan Cazala <juan.cazala@mulesoft.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mulesoft-labs/json-form/issues"
+  },
+  "homepage": "https://github.com/mulesoft-labs/json-form",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-less": "^3.0.3",
+    "gulp-uglify": "^1.2.0"
+  }
+}
