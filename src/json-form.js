@@ -33,7 +33,7 @@ angular.module('json-form', [])
 	return {
 		restrict: 'E',
     require: 'ngModel',
-		templateUrl: '/views/directives/json-form.html',
+		templateUrl: './json-form.html',
 		scope: {
       ngModel: '=',
 			schema: '=formSchema',
