@@ -15,5 +15,5 @@ TODO
 
 2) run `npm install && bower install`
 
-3) run `gulp` to compile dist files, or `gulp watch` to watch for changes and rebuild when detected
+3) run `npm run build` to compile dist files
 
