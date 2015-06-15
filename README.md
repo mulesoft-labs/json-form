@@ -11,7 +11,7 @@ TODO
 
 ### Collaborate
 
-1) clone repo: git clone https://github.com/mulesoft-labs/json-form.git
+1) clone repo: `git clone https://github.com/mulesoft-labs/json-form.git`
 
 2) install dependencies: `npm install && bower install`
 
