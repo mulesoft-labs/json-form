@@ -16,7 +16,7 @@
   },
   "main": [
     "dist/json-form.js",
-    "dist/json-form.css",
+    "dist/json-form.css"
   ],
   "keywords": [
     "angular",
@@ -27,10 +27,7 @@
   ],
   "license": "MIT",
   "ignore": [
-    "**/.*",
     "node_modules",
-    "bower_components",
-    "test",
-    "tests"
+    "bower_components"
   ]
 }
