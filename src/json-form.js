@@ -1,4 +1,4 @@
-angular.module('json-form', [])
+angular.module('json-form', ['json-form.template'])
 .directive('validationFile', function() {
   return {
     require: 'ngModel',
@@ -33,7 +33,7 @@ angular.module('json-form', [])
 	return {
 		restrict: 'E',
     require: 'ngModel',
-		templateUrl: 'json-form.html',
+		templateUrl: 'src/json-form.html',
 		scope: {
       ngModel: '=',
 			schema: '=formSchema',

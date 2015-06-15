@@ -1,10 +1,10 @@
 {
   "name": "json-form",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "dynamic angular forms generated from a json",
   "main": "dist/json-form.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gulp template && gulp"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,9 @@
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^2.3.1",
+    "gulp-concat": "^2.5.2",
     "gulp-cssmin": "^0.1.7",
+    "gulp-html2js": "^0.2.0",
     "gulp-less": "^3.0.3",
     "gulp-uglify": "^1.2.0"
   }
