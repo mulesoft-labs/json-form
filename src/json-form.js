@@ -351,7 +351,11 @@ angular.module('json-form', ['json-form.template'])
       }
 
       // validate form
+      var oldSchema = null;
       scope.$watch(function(){
+        if (oldSchema !== scope.schema) {
+          initSchema();
+        }
         if (scope.schema) {
           scope.valid = true;
           Object.keys(scope.schema)
@@ -363,6 +367,7 @@ angular.module('json-form', ['json-form.template'])
             }
           });
         }
+        oldSchema = scope.schema;
       })
     }
 	}
