@@ -27,7 +27,7 @@ angular.module('json-form', ['json-form.template'])
         }
       }
     }
-  };
+  }
 }])
 .directive('jsonForm', function() {
 	return {
@@ -121,7 +121,7 @@ angular.module('json-form', ['json-form.template'])
           defaults (item, 'helpMessage', '');
           defaults (item, 'errorMessage', null);
           defaults (item, 'debounce', item.validationUrl.length > 0 ? 200 : 0);
-          defaults (item, 'updateOn', item.typeahead.length > 0 || item.debounce > 0 ? 'default' : 'blur');
+          defaults (item, 'updateOn', 'default');
 
           // fix wrong types
           item.visible = item.visible === "true" ? true : item.visible === "false" ? false : item.visible;
