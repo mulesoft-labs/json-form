@@ -6,7 +6,7 @@
       <!-- Label -->
       <label 
         ng-if="item.type != 'checkbox'"
-        ng-class="{ 'text-muted' : isDisabled(item), 'col-sm-12': item.type == 'title', 'col-sm-4': item.type != 'title' }"
+        ng-class="{ 'text-muted' : isDisabled(item), 'col-sm-12': item.type == 'title', 'col-sm-4': item.type != 'title', 'has-options': item.type == 'password-show' || item.type == 'password-generate' }"
         >
 
         <!-- Title -->
