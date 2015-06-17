@@ -5,13 +5,13 @@
     <div class="form-group row has-feedback" ng-class="{ 'is-centered': item.type != 'textarea' }" ng-show="isVisible(item)">
       <!-- Label -->
       <label 
-        for="json-form-{{item.name}}"
+        ng-if="item.type != 'checkbox'"
         ng-class="{ 'text-muted' : isDisabled(item), 'col-sm-12': item.type == 'title', 'col-sm-4': item.type != 'title' }"
         >
 
         <!-- Title -->
         <h4 class="text-muted" ng-if="item.type == 'title'">{{item.label}}
-          <i  class="fa fa-question-circle" 
+          <i  class="fa fa-question-circle text-info" 
               ng-if="!!item.helpMessage" 
               popover="{{ item.helpMessage }}" 
               popover-trigger="mouseenter" 
@@ -26,7 +26,7 @@
       </label>
 
       <!-- Field input -->
-      <div class="col-sm-8" ng-if="item.type != 'title'">
+      <div class="col-sm-8" ng-if="item.type != 'title'" ng-class="{ 'col-sm-offset-4': item.type == 'checkbox' }">
 
         <!-- Text, Password and Number -->
         <div class="is-relative" ng-if="isInput(item)">          
@@ -84,7 +84,7 @@
           ><i class="fa fa-times"></i></span>
 
           <!-- Only for Passwords -->
-          <div ng-if="item.type == 'password-show' || item.type == 'password-generate'" class="password-options form-group flex-row flex-justify-space-between">
+          <div ng-if="item.type == 'password-show' || item.type == 'password-generate'" class="password-options">
             <div class="checkbox">
               <input type="checkbox" id="generate-password-{{item.name}}" ng-model="item.showPassword"/>
               <label for="generate-password-{{item.name}}">Show password</span></label>

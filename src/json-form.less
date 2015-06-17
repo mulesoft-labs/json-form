@@ -15,6 +15,10 @@
 	    margin: 0;
 	}
 
+	label {
+		margin-bottom: 10px;
+	}
+
 	.checkbox input[type=checkbox] {
 		display: inline-block;
 		transform: translateX(21px);
@@ -31,18 +35,6 @@
 
 	.is-relative{
 		position:relative;
-	}
-
-	.is-centered {
-		-ms-flex-align: center;
-		-webkit-align-items: center;
-		align-items: center;
-		display: -webkit-flex;
-		display: -ms-flexbox;
-		display: flex;
-		-webkit-flex-direction: row;
-		-ms-flex-direction: row;
-		flex-direction: row;
 	}
 
 	.password-options {
@@ -77,3 +69,17 @@
 		}
 	}
 } 
+
+@media (min-width: 768px) {  
+	.jsonForm .is-centered {
+		-ms-flex-align: center;
+		-webkit-align-items: center;
+		align-items: center;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-flex-direction: row;
+		-ms-flex-direction: row;
+		flex-direction: row;
+	}
+}

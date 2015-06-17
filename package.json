@@ -1,6 +1,6 @@
 {
   "name": "json-form",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "dynamic angular forms generated from a json",
   "main": "dist/json-form.js",
   "scripts": {
