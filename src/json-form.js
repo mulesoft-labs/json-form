@@ -124,6 +124,7 @@ angular.module('json-form', ['json-form.template'])
           defaults (item, 'updateOn', 'default');
 
           // fix wrong types
+          item.default = item.default === "" ? null : item.default;
           item.visible = item.visible === "true" ? true : item.visible === "false" ? false : item.visible;
           item.enabled = item.enabled === "true" ? true : item.enabled === "false" ? false : item.enabled;
           item.required = item.required === "true" ? true : item.required === "false" ? false : item.required;
@@ -176,7 +177,7 @@ angular.module('json-form', ['json-form.template'])
       // Returns whether an item should be disabled or not
       scope.isDisabled = function(item){
 
-      	var prev = typeof scope.disabled[item.name] == 'undefined' ? item.disabled : !!scope.disabled[item.name];
+      	var prev = typeof scope.disabled[item.name] == 'undefined' ? !item.enabled : !!scope.disabled[item.name];
         var disabled = scope.disabled[item.name] = item.enabled == false || typeof item.enabled == "string" && !bindingValue(item.enabled);
 
         if (disabled)
