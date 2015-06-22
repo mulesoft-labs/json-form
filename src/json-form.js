@@ -39,7 +39,7 @@ angular.module('json-form', ['json-form.template'])
 			schema: '=formSchema',
       valid: '=?formValid',
 			jsonForm: '=?formCtrl',
-			readOnly: '@?msReadonly'
+			readOnly: '@?formReadonly'
 		},
 		link: function(scope, element, attributes, ctrl) {
       // shortcuts
@@ -50,6 +50,12 @@ angular.module('json-form', ['json-form.template'])
       scope.disabled = {};
       scope.visible = {};
       scope.required = {};
+
+      // read only
+      if (scope.readOnly === 'true')
+        scope.readOnly = true;
+      else
+        scope.readOnly = false;
 
       // checks if a property is undefined or null, and fills it with a default value
       var defaults = function(item, prop, val){
@@ -176,6 +182,11 @@ angular.module('json-form', ['json-form.template'])
 
       // Returns whether an item should be disabled or not
       scope.isDisabled = function(item){
+
+        if (scope.readOnly !== 'true' && scope.readOnly !== true)
+          scope.readOnly = false;
+        if (scope.readOnly)
+          return true;
 
       	var prev = typeof scope.disabled[item.name] == 'undefined' ? !item.enabled : !!scope.disabled[item.name];
         var disabled = scope.disabled[item.name] = item.enabled == false || typeof item.enabled == "string" && !bindingValue(item.enabled);

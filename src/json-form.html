@@ -6,7 +6,7 @@
       <!-- Label -->
       <label 
         ng-if="item.type != 'checkbox'"
-        ng-class="{ 'text-muted' : isDisabled(item), 'col-sm-12': item.type == 'title', 'col-sm-4': item.type != 'title', 'has-options': item.type == 'password-show' || item.type == 'password-generate' }"
+        ng-class="{ 'text-muted' : isDisabled(item) && !readOnly, 'col-sm-12': item.type == 'title', 'col-sm-4': item.type != 'title', 'has-options': item.type == 'password-show' || item.type == 'password-generate' }"
         >
 
         <!-- Title -->
@@ -34,7 +34,7 @@
 
             type="{{ getType(item) }}" 
             class="form-control" 
-            placeholder="{{ item.placeholder }}"
+            placeholder="{{ readOnly ? '' : item.placeholder }}"
             
             popover="{{ item.helpMessage }}" 
             popover-trigger="focus" 
@@ -59,7 +59,6 @@
             ng-trim="true"
 
             ng-pattern="item.pattern" 
-            ng-readonly="readOnly"
             ng-disabled="isDisabled(item)"
 
             tabindex="{{ $index + 1 }}"
@@ -86,10 +85,10 @@
           <!-- Only for Passwords -->
           <div ng-if="item.type == 'password-show' || item.type == 'password-generate'" class="password-options">
             <div class="checkbox">
-              <input type="checkbox" id="generate-password-{{item.name}}" ng-model="item.showPassword"/>
+              <input ng-disabled="isDisabled(item)" type="checkbox" id="generate-password-{{item.name}}" ng-model="item.showPassword"/>
               <label for="generate-password-{{item.name}}">Show password</span></label>
             </div>
-            <button class="btn btn-default" ng-click="generatePassword(item)" ng-if="item.type == 'password-generate'">Generate</button>
+            <button ng-disabled="isDisabled(item)" class="btn btn-default" ng-click="generatePassword(item)" ng-if="item.type == 'password-generate'">Generate</button>
           </div>
 
         </div>
@@ -113,7 +112,6 @@
           ng-trim="true"
 
           ng-pattern="item.pattern" 
-          ng-readonly="readOnly"
           ng-disabled="isDisabled(item)"
 
           tabindex="{{ $index + 1 }}"
@@ -134,6 +132,7 @@
             popover-placement="right"
 
             tabindex="{{ $index + 1 }}"
+            ng-disabled="isDisabled(item)"
           />
           <label for="checkbox-{{item.name}}">{{item.label}}</label>
         </div>
@@ -152,7 +151,6 @@
           popover-placement="right"
 
           ng-required="isRequired(item)"
-          ng-readonly="readOnly" 
           ng-disabled="isDisabled(item)"
 
           tabindex="{{ $index + 1 }}"
@@ -184,7 +182,6 @@
               ngf-change = "onFileSelect(item, $files)"
 
               ng-required="isRequired(item)"
-              ng-readonly="readOnly" 
               ng-disabled="isDisabled(item)"
 
               validation-file
