@@ -135,7 +135,7 @@ Here is a list of all the available options for the fields defined in the **sche
 
 This library includes an angular service that helps to easily create modal forms or prompts.
 
-```
+```javascript
 angular.module('myApp')
 .controller('MainCtrl', function ($scope, jsonForm) {
 
