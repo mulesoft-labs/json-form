@@ -99,9 +99,9 @@ Here is a list of all the available options for the fields defined in the **sche
 
 - `validationUrl` a url where the value of the field will be POST'd. 
 
--The value will be sent in the following way: `{ validate: fieldValue }`
+  * The value will be sent in the following way: `{ validate: fieldValue }`
 
--The response must be a json with the following format: `{ data: { valid: true/false } }`
+  * The response must be a json with the following format: `{ data: { valid: true/false } }`
 
 - `placeholder` a placeholder for field.
 
