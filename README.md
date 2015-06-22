@@ -1,5 +1,8 @@
 # JSON Form
-AngularJS + Bootstrap forms generated from a JSON
+
+AngularJS + Bootstrap forms generated from a JSON. 
+
+[Live Demo](http://mulesoft-labs.github.io/json-form)
 
 ##Installation
 
@@ -103,7 +106,7 @@ Here is a list of all the available options for the fields defined in the **sche
 
   * The response must be a json with the following format: `{ data: { valid: true/false } }`
 
-- `placeholder` a placeholder for field.
+- `placeholder` a placeholder for the field.
 
 - `minLength` a number indicating the minimum permitted length for the field. Only for string-like fields.
 
