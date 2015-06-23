@@ -82,7 +82,7 @@ angular.module('json-form', ['json-form.template'])
 
       // initialize all the items
       var initSchema = function(){
-        _.each(scope.schema, function(item, index) {
+        scope.schema.forEach(function(item, index) {
 
           // Get label from item name if not defined
           if (typeof item.name == 'undefined' && typeof item.label == 'undefined')
