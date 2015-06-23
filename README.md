@@ -42,6 +42,8 @@ form-valid="isValid"
 <button ng-disabled="!isValid">Submit</button>
 ```
 
+- `form-readonly` If set to `"true"`, the form is rendered in read-only mode. This can be useful when a form has to be editable for users with certain roles/permissions (i.e. an admin) and non-editable for others. This attribute is optional.
+
 - `form-ctrl` This attribute is optional. The variable passed in this attribute will be bound to AngularJS's **FormCtrl** instance, which is useful for creating custom or complex behaviours.
 
 ##Schema Options
