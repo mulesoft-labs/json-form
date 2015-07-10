@@ -29,68 +29,76 @@
       <div class="col-sm-8" ng-if="item.type != 'title'" ng-class="{ 'col-sm-offset-4': item.type == 'checkbox' }">
 
         <!-- Text, Password and Number -->
-        <div class="is-relative" ng-if="isInput(item)">          
-          <input 
+        <div class="row" ng-if="isInput(item)">
+          <div ng-class="{ 'col-sm-9': item.type == 'password-generate', 'col-sm-12': item.type != 'password-generate' }">    
+            <div class="is-relative">      
+              <input 
 
-            type="{{ getType(item) }}" 
-            class="form-control" 
-            placeholder="{{ readOnly ? '' : item.placeholder }}"
-            
-            popover="{{ item.helpMessage }}" 
-            popover-trigger="focus" 
-            popover-placement="right" 
-            popover-append-to-body="true"
+                type="{{ getType(item) }}" 
+                class="form-control" 
+                placeholder="{{ readOnly ? '' : item.placeholder }}"
+                
+                popover="{{ item.helpMessage }}" 
+                popover-trigger="focus" 
+                popover-placement="right" 
+                popover-append-to-body="true"
 
-            validation-url="{{ item.validationUrl }}"
+                validation-url="{{ item.validationUrl }}"
 
-            typeahead="t for t in item.typeahead | filter:$viewValue | limitTo:8"
+                typeahead="t for t in item.typeahead | filter:$viewValue | limitTo:8"
 
-            ng-model="ngModel[item.name]" 
-            ng-model-options="{ updateOn: item.updateOn, debounce: item.debounce }" 
-            ng-focus="focus[item.name] = true; jsonForm[item.name].$setDirty();"
-            ng-blur="focus[item.name] = false"
+                ng-model="ngModel[item.name]" 
+                ng-model-options="{ updateOn: item.updateOn, debounce: item.debounce }" 
+                ng-focus="focus[item.name] = true; jsonForm[item.name].$setDirty();"
+                ng-blur="focus[item.name] = false"
 
-            ng-required="isRequired(item)"
-            minlength="{{ item.minLength }}"
-            maxlength="{{ item.maxLength }}"
-            ng-min="{{ item.min }}"
-            ng-max="{{ item.max }}"
-            ng-pattern="item.pattern"
-            ng-trim="true"
+                ng-required="isRequired(item)"
+                minlength="{{ item.minLength }}"
+                maxlength="{{ item.maxLength }}"
+                ng-min="{{ item.min }}"
+                ng-max="{{ item.max }}"
+                ng-pattern="item.pattern"
+                ng-trim="true"
 
-            ng-pattern="item.pattern" 
-            ng-disabled="isDisabled(item)"
+                ng-pattern="item.pattern" 
+                ng-disabled="isDisabled(item)"
 
-            tabindex="{{ $index + 1 }}"
-          />
+                tabindex="{{ $index + 1 }}"
+              />
 
-          <!-- Validation feedback -->
-          <span 
-            ng-if="item.feedback" 
-            ng-show="!jsonForm[item.name].$pending && jsonForm[item.name].$valid && jsonForm[item.name].$dirty" 
-            class="form-control-feedback text-muted"
-            ><i class="fa fa-check"></i>
-          </span>
-          <span 
-            ng-if="item.feedback" 
-            ng-show="jsonForm[item.name].$pending && jsonForm[item.name].$dirty" 
-            class="form-control-feedback text-muted"
-          ><i class="fa fa-refresh fa-spin"></i></span>
-          <span 
-            ng-if="item.feedback" 
-            ng-show="!jsonForm[item.name].$pending && jsonForm[item.name].$invalid && jsonForm[item.name].$dirty" 
-            class="form-control-feedback text-muted"
-          ><i class="fa fa-times"></i></span>
+              <!-- Validation feedback -->
+              <span 
+                ng-if="item.feedback" 
+                ng-show="!jsonForm[item.name].$pending && jsonForm[item.name].$valid && jsonForm[item.name].$dirty" 
+                class="form-control-feedback text-muted"
+                ><i class="fa fa-check"></i>
+              </span>
+              <span 
+                ng-if="item.feedback" 
+                ng-show="jsonForm[item.name].$pending && jsonForm[item.name].$dirty" 
+                class="form-control-feedback text-muted"
+              ><i class="fa fa-refresh fa-spin"></i></span>
+              <span 
+                ng-if="item.feedback" 
+                ng-show="!jsonForm[item.name].$pending && jsonForm[item.name].$invalid && jsonForm[item.name].$dirty" 
+                class="form-control-feedback text-muted"
+              ><i class="fa fa-times"></i></span>
 
-          <!-- Only for Passwords -->
-          <div ng-if="item.type == 'password-show' || item.type == 'password-generate'" class="password-options">
-            <div class="checkbox">
-              <input ng-disabled="isDisabled(item)" type="checkbox" id="generate-password-{{item.name}}" ng-model="item.showPassword"/>
-              <label for="generate-password-{{item.name}}">Show password</span></label>
+              <!-- Show Passwords -->
+              <span 
+                ng-if="item.type == 'password-show' || item.type == 'password-generate'" 
+                ng-click="togglePassword(item)"
+                class="form-control-feedback" 
+                style="cursor:pointer;  pointer-events: auto;"
+                ng-class=" { 'text-muted': !item.showPassword }"
+                ><i class="fa fa-eye" tooltip="{{ item.showPassword ? 'Hide Password' : 'Show Password' }}" tooltip-append-to-body="true"></i>
+              </span>
             </div>
-            <button ng-disabled="isDisabled(item)" class="btn btn-default" ng-click="generatePassword(item)" ng-if="item.type == 'password-generate'">Generate</button>
           </div>
-
+          <!-- Generate Password -->
+          <div ng-if="item.type == 'password-generate'" class="col-md-3">
+              <button ng-disabled="isDisabled(item)" class="btn btn-default pull-right" ng-click="generatePassword(item)" ng-if="item.type == 'password-generate'">Generate</button>
+          </div>
         </div>
 
         <!-- Text Area -->

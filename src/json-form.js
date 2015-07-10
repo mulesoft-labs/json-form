@@ -180,6 +180,10 @@ angular.module('json-form', ['json-form.template'])
         scope.ngModel[item.name] = password;
       }
 
+      scope.togglePassword = function(item){
+        item.showPassword = !item.showPassword;
+      }
+
       // Returns whether an item should be disabled or not
       scope.isDisabled = function(item){
 
