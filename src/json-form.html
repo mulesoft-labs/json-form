@@ -111,7 +111,7 @@
           maxlength="{{ item.maxLength }}"
 
           ng-model="ngModel[item.name]" 
-          ng-model-options="{ updateOn: 'blur' }" 
+          ng-model-options="{ updateOn: item.updateOn, debounce: item.debounce }" 
           ng-focus="focus[item.name] = true; jsonForm[item.name].$setDirty();"
           ng-blur="focus[item.name] = false"
 

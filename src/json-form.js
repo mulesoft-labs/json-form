@@ -1,5 +1,11 @@
-angular.module('json-form', ['json-form.template'])
-.directive('validationFile', function() {
+var module = angular.module('json-form', ['json-form.template']);
+
+/* 
+  File Validation directive
+  
+  This directive validates a file input
+*/
+function validationFile() {
   return {
     require: 'ngModel',
     restrict: 'A',
@@ -9,8 +15,17 @@ angular.module('json-form', ['json-form.template'])
       }
     }
   }
-})
-.directive('validationUrl', ['$http', '$q', function($http, $q) {
+}
+
+// export
+module.directive('validationFile', validationFile);
+
+/* 
+  URL Validation directive
+  
+  This directive validates an input against an endpoint asynchronously
+*/
+function validationUrl($http, $q) {
   return {
     require: 'ngModel',
     restrict: 'A',
@@ -28,8 +43,17 @@ angular.module('json-form', ['json-form.template'])
       }
     }
   }
-}])
-.directive('jsonForm', function() {
+}
+
+// export
+module.directive('validationUrl', ['$http', '$q', validationUrl]);
+
+/* 
+  JSON Form directive
+  
+  This directive generates a bootstrap form from an schema
+*/
+function JSONForm() {
 	return {
 		restrict: 'E',
     require: 'ngModel',
@@ -64,18 +88,37 @@ angular.module('json-form', ['json-form.template'])
       }
 
       var bindingValue = function(prop){
+        // aux regex's
         var refRegex = /(.*)\[/;
         var valRegex = /\[(.*)\]$/;
+        var negRegex = /^!(.*)$/;
+        // aux negated
+        var negated = false;
+        // check if prop is in value[index] notation
         if (refRegex.test(prop) && valRegex.test(prop)) {
-          var reference = refRegex.exec(prop)
+          // extract names
+          var reference = refRegex.exec(prop);
           var value = valRegex.exec(prop);
+          // check if valid
           if (reference.length > 1 && value.length > 1) {
-            var refValue = scope.ngModel[reference[1]];
+            var refName = reference[1];
+            // check if negated
+            if (negRegex.test(refName)) {
+              negated = true;
+              refName = negRegex.exec(refName)[1];
+            }
+            var refValue = scope.ngModel[refName];
             value = value[1];
             if (typeof refValue != 'undefined' && typeof value != 'undefined') {
-              return value == refValue;
+              var ret = value == refValue;
+              return negated? !ret: ret;
             }
           }
+        }
+        // check if negated
+        if (negRegex.test(prop)) {
+          var propName = negRegex.exec(prop)[1];
+          return !scope.ngModel[propName];
         }
         return scope.ngModel[prop];
       }
@@ -254,7 +297,6 @@ angular.module('json-form', ['json-form.template'])
                 item.type == 'month' ||
                 item.type == 'url' ||
                 item.type == 'email';
-
       }
 
       scope.getType = function(item) {
@@ -387,8 +429,17 @@ angular.module('json-form', ['json-form.template'])
       })
     }
 	}
-})
-.service('jsonForm', ['$modal', function($modal){
+}
+
+// export
+module.directive('jsonForm', JSONForm);
+
+/* 
+  JSON Form service
+  
+  This service provides a way to use the JSON Form programatically. The service can be injected as a regular dependency and by calling .open() it show the form in a modal.
+*/
+function JSONFormService($modal){
   return {
     open: function(schema, modalOptions){
 
@@ -412,4 +463,8 @@ angular.module('json-form', ['json-form.template'])
       return $modal.open(options).result;
     }
   }
-}]);
+}
+
+// export
+module.service('jsonForm', ['$modal', JSONFormService]);
+
