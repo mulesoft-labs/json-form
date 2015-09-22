@@ -1,8 +1,8 @@
 var module = angular.module('json-form', ['json-form.template']);
 
-/* 
+/*
   File Validation directive
-  
+
   This directive validates a file input
 */
 function validationFile() {
@@ -20,9 +20,9 @@ function validationFile() {
 // export
 module.directive('validationFile', validationFile);
 
-/* 
+/*
   URL Validation directive
-  
+
   This directive validates an input against an endpoint asynchronously
 */
 function validationUrl($http, $q) {
@@ -48,9 +48,9 @@ function validationUrl($http, $q) {
 // export
 module.directive('validationUrl', ['$http', '$q', validationUrl]);
 
-/* 
+/*
   JSON Form directive
-  
+
   This directive generates a bootstrap form from an schema
 */
 function JSONForm() {
@@ -148,6 +148,14 @@ function JSONForm() {
             item.updateOn = 'default';
           }
 
+          if (item.type=='radio'){
+            if (item.default){
+                scope.ngModel[item.name] = item.default;
+            } else{
+                scope.ngModel[item.name] = Object.keys(item.options)[0];
+            }
+          }
+
           // fill undefined or null properties with default configuration
           defaults (item, 'order', index);
           defaults (item, 'visible', true);
@@ -214,11 +222,11 @@ function JSONForm() {
         });
       }
       initSchema();
-	
+
 			// Generates a random passoword
       scope.generatePassword = function(item){
-      	for(var password = "", chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; 
-        		password.length < 10; 
+      	for(var password = "", chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        		password.length < 10;
         		password += chars.charAt(Math.floor(Math.random() * chars.length)));
         scope.ngModel[item.name] = password;
       }
@@ -272,7 +280,7 @@ function JSONForm() {
 
       // Returns whether an item should be required or not
       scope.isRequired = function(item){
-        
+
         var prev = typeof scope.required[item.name] == 'undefined' ? item.required : !!scope.required[item.name];
         var required = scope.required[item.name] = item.required == true || typeof item.required == "string" && bindingValue(item.required);
 
@@ -434,9 +442,9 @@ function JSONForm() {
 // export
 module.directive('jsonForm', JSONForm);
 
-/* 
+/*
   JSON Form service
-  
+
   This service provides a way to use the JSON Form programatically. The service can be injected as a regular dependency and by calling .open() it show the form in a modal.
 */
 function JSONFormService($modal){
@@ -467,4 +475,3 @@ function JSONFormService($modal){
 
 // export
 module.service('jsonForm', ['$modal', JSONFormService]);
-
