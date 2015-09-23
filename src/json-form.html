@@ -169,21 +169,21 @@
         </select>
 
         <!--Radio Buttons-->
-        <div ng-if="item.type=='radio'" ng-repeat="(key, value) in item.options">
+        <div class="radio" ng-if="item.type=='radio'" ng-repeat="(key, value) in item.options">
+          <input
+            id="radio-{{key}}"
+            type="radio"
+            name="radio-{{key}}"
+            ng-model="ngModel[item.name]"
+            ng-value="key"
+            ng-required="isRequired(item)"
+            ng-disabled="isDisabled(item)"
+            tabindex="{{ $index + 1 }}">
           <label for="radio-{{key}}"
             popover-trigger="mouseenter"
             popover="{{ item.helpMessage }}"
             popover-append-to-body="true"
             popover-placement="right">
-          <input
-            id="radio-{{key}}"
-            type="radio"
-            ng-model="ngModel[item.name]"
-            ng-value="key"
-            ng-required="isRequired(item)"
-            ng-disabled="isDisabled(item)"
-
-            tabindex="{{ $index + 1 }}">
             {{value}}
           </label>
          </div>
