@@ -62,6 +62,8 @@ Here is a list of all the available options for the fields defined in the **sche
 
   * select
 
+  * radio
+
   * file
 
   * password
@@ -120,7 +122,7 @@ Here is a list of all the available options for the fields defined in the **sche
 
 - `accept` a string with the accepted file formats, i.e. ".jpg, .png, .gif". Only for **file** fields.
 
-- `options` An object that will generate the options of a **select**.
+- `options` An object that will generate the options of a **select** or a **radio**.
 
 - `typeahead` An array of strings, or a string of comma separated values that will be passed to the typeahead directive.
 
