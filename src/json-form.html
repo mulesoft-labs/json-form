@@ -134,15 +134,16 @@
             id="checkbox-{{item.name}}"
             ng-model="ngModel[item.name]"
             type="checkbox"
-
-            popover-on-focus="{{ item.helpMessage }}"
-            popover-append-to-body="true"
-            popover-placement="right"
-
             tabindex="{{ $index + 1 }}"
             ng-disabled="isDisabled(item)"
           />
-          <label for="checkbox-{{item.name}}">{{item.label}}</label>
+          <label for="checkbox-{{item.name}}"
+          popover-trigger="mouseenter"
+          popover="{{ item.helpMessage }}"
+          popover-append-to-body="true"
+          popover-placement="right">
+          {{item.label}}
+        </label>
         </div>
 
         <!-- Select -->
@@ -154,7 +155,8 @@
           ng-model="ngModel[item.name]"
           ng-options="key as value for (key, value) in item.options"
 
-          popover-on-focus="{{ item.helpMessage }}"
+          popover-trigger="mouseenter"
+          popover="{{ item.helpMessage }}"
           popover-append-to-body="true"
           popover-placement="right"
 
@@ -168,12 +170,20 @@
 
         <!--Radio Buttons-->
         <div ng-if="item.type=='radio'" ng-repeat="(key, value) in item.options">
+          <label for="radio-{{key}}"
+            popover-trigger="mouseenter"
+            popover="{{ item.helpMessage }}"
+            popover-append-to-body="true"
+            popover-placement="right">
           <input
-            id="radio--{{key}}"
+            id="radio-{{key}}"
             type="radio"
             ng-model="ngModel[item.name]"
-            ng-value="key">
-          <label for="radio-{{key}}">
+            ng-value="key"
+            ng-required="isRequired(item)"
+            ng-disabled="isDisabled(item)"
+
+            tabindex="{{ $index + 1 }}">
             {{value}}
           </label>
          </div>
