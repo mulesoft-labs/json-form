@@ -428,7 +428,14 @@ function JSONForm() {
           .forEach(function(key){
             var item = scope.schema[key];
             var form = scope.jsonForm[item.name];
-            if(scope.isRequired(item) && !scope.isDisabled(item) && scope.isVisible(item) && typeof form != 'undefined' && form.$invalid || form.$pending){
+
+            var isRequired = scope.isRequired(item);
+            var isEnabled = !scope.isDisabled(item);
+            var isVisible = scope.isVisible(item);
+            var isInvalid = typeof form != 'undefined' && form.$invalid;
+            var isPending = typeof form != 'undefined' && form.$pending;
+
+            if(isRequired && isEnabled && isVisible && isInvalid || isPending){
               scope.valid = false;
             }
           });
