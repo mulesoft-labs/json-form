@@ -2,7 +2,7 @@
 <form name="jsonForm" class="jsonForm container-fluid" novalidate>
 
   <ng-form ng-repeat="item in schema | orderBy:'order'" ng-class="getClass(item)" name="{{item.name}}">
-    <div class="form-group row has-feedback" ng-class="{ 'is-centered': item.type != 'textarea' && item.type != 'radio'}" ng-show="isVisible(item)">
+    <div style="display: block" class="form-group row has-feedback" ng-class="{ 'is-centered': item.type != 'textarea' && item.type != 'radio'}" ng-show="isVisible(item)">
       <!-- Label -->
       <label
         ng-if="item.type != 'checkbox'"
@@ -30,7 +30,7 @@
 
         <!-- Text, Password and Number -->
         <div class="row" ng-if="isInput(item)">
-          <div ng-class="{ 'col-sm-9': item.type == 'password-generate', 'col-sm-12': item.type != 'password-generate' }">
+          <div ng-class="{ 'col-xs-10 col-sm-9': item.type == 'password-generate', 'col-sm-12': item.type != 'password-generate' }">
             <div class="is-relative">
               <input
 
@@ -96,7 +96,7 @@
             </div>
           </div>
           <!-- Generate Password -->
-          <div ng-if="item.type == 'password-generate'" class="col-md-3">
+          <div ng-if="item.type == 'password-generate'" class="col-xs-2 col-sm-3">
               <button ng-disabled="isDisabled(item)" class="btn btn-default pull-right" ng-click="generatePassword(item)" ng-if="item.type == 'password-generate'">Generate</button>
           </div>
         </div>
@@ -187,7 +187,7 @@
               popover-placement="right">
               {{value}}
             </label>
-          <div><br>
+          </div><br>
          </div>
 
         <!-- Files -->
