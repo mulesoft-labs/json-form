@@ -87,44 +87,8 @@ function JSONForm() {
       		item[prop] = val;
       }
 
-      var bindingValue = function(prop){
-        // aux regex's
-        var refRegex = /(.*)\[/;
-        var valRegex = /\[(.*)\]$/;
-        var negRegex = /^!(.*)$/;
-        // aux negated
-        var negated = false;
-        // check if prop is in value[index] notation
-        if (refRegex.test(prop) && valRegex.test(prop)) {
-          // extract names
-          var reference = refRegex.exec(prop);
-          var value = valRegex.exec(prop);
-          // check if valid
-          if (reference.length > 1 && value.length > 1) {
-            var refName = reference[1];
-            // check if negated
-            if (negRegex.test(refName)) {
-              negated = true;
-              refName = negRegex.exec(refName)[1];
-            }
-            var refValue = scope.ngModel[refName];
-            value = value[1];
-            if (typeof refValue != 'undefined' && typeof value != 'undefined') {
-              var ret = value == refValue;
-              return negated? !ret: ret;
-            }
-          }
-        }
-        // check if negated
-        if (negRegex.test(prop)) {
-          var propName = negRegex.exec(prop)[1];
-          return !scope.ngModel[propName];
-        }
-        return scope.ngModel[prop];
-      }
-
       // initialize all the items
-      var initSchema = function(){
+      function initSchema(){
         scope.schema.forEach(function(item, index) {
 
           // Get label from item name if not defined
@@ -221,6 +185,47 @@ function JSONForm() {
           }
         });
       }
+
+      function bindingValue(prop){
+        // aux regex's
+        var refRegex = /(.*)\[/;
+        var valRegex = /\[(.*)\]$/;
+        var negRegex = /^!(.*)$/;
+        // aux negated
+        var negated = false;
+        // check if prop is in value[index] notation
+        if (refRegex.test(prop) && valRegex.test(prop)) {
+          // extract names
+          var reference = refRegex.exec(prop);
+          var value = valRegex.exec(prop);
+          // check if valid
+          if (reference.length > 1 && value.length > 1) {
+            var refName = reference[1];
+            // check if negated
+            if (negRegex.test(refName)) {
+              negated = true;
+              refName = negRegex.exec(refName)[1];
+            }
+            var refValue = scope.ngModel[refName];
+            value = value[1];
+            if (typeof refValue != 'undefined' && typeof value != 'undefined') {
+              var ret = value == refValue;
+              return negated? !ret: ret;
+            }
+          }
+        }
+        // check if negated
+        if (negRegex.test(prop)) {
+          var propName = negRegex.exec(prop)[1];
+          return !scope.ngModel[propName];
+        }
+        return scope.ngModel[prop];
+      }
+
+      function toBoolean(value) {
+        return value == true || typeof value == "string" && bindingValue(value)
+      }
+
       initSchema();
 
 			// Generates a random passoword
@@ -243,8 +248,9 @@ function JSONForm() {
         if (scope.readOnly)
           return true;
 
-      	var prev = typeof scope.disabled[item.name] == 'undefined' ? !item.enabled : !!scope.disabled[item.name];
-        var disabled = scope.disabled[item.name] = item.enabled == false || typeof item.enabled == "string" && !bindingValue(item.enabled);
+        var value = toBoolean(item.enabled);
+        var prev = typeof scope.disabled[item.name] == 'undefined' ? !value : !!scope.disabled[item.name];
+        var disabled = scope.disabled[item.name] = !value;
 
         if (disabled)
         {
@@ -262,8 +268,9 @@ function JSONForm() {
       // Returns whether an item should be visible or not
       scope.isVisible = function(item){
 
-      	var prev = typeof scope.visible[item.name] == 'undefined' ? item.visible : !!scope.visible[item.name];
-        var visible = scope.visible[item.name] = item.visible == true || typeof item.visible == "string" && bindingValue(item.visible);
+        var value = toBoolean(item.visible);
+        var prev = typeof scope.visible[item.name] == 'undefined' ? value : !!scope.visible[item.name];
+        var visible = scope.visible[item.name] = value;
 
         if (!visible)
         {
@@ -281,8 +288,9 @@ function JSONForm() {
       // Returns whether an item should be required or not
       scope.isRequired = function(item){
 
-        var prev = typeof scope.required[item.name] == 'undefined' ? item.required : !!scope.required[item.name];
-        var required = scope.required[item.name] = item.required == true || typeof item.required == "string" && bindingValue(item.required);
+        var value = toBoolean(item.required);
+        var prev = typeof scope.required[item.name] == 'undefined' ? value : !!scope.required[item.name];
+        var required = scope.required[item.name] = value;
 
         if (required && prev != required) {
           scope.jsonForm[item.name].$setDirty();
