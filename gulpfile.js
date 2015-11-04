@@ -20,13 +20,13 @@ gulp.task('default', function(){
   // convert html to js
   gulp.src(['./src/template.js', './src/json-form.js'])
     .pipe(concat('json-form.js'))
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(gulp.dest('dist'));
 });
 
 // template
 gulp.task('template', function () {
-  
+
   // convert html to js
   gulp.src('./src/json-form.html')
     .pipe(html2js({
