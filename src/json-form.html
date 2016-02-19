@@ -97,7 +97,7 @@
           </div>
           <!-- Generate Password -->
           <div ng-if="item.type == 'password-generate'" class="col-xs-2 col-sm-3">
-              <button ng-disabled="isDisabled(item)" class="btn btn-default pull-right" ng-click="generatePassword(item)" ng-if="item.type == 'password-generate'">Generate</button>
+              <button type="button" ng-disabled="isDisabled(item)" class="btn btn-default pull-right" ng-click="generatePassword(item)" ng-if="item.type == 'password-generate'">Generate</button>
           </div>
         </div>
 
@@ -195,7 +195,7 @@
         <div class="input-group col-sm-12" ng-if="item.type == 'file' &&  hasFile(item)">
           <input type="text" class="form-control input" value="{{ getFileName(item) }}" disabled>
           <span class="input-group-btn">
-            <button ng-click="resetFile(item)" class="btn btn-default pull-right" tabindex="{{ $index + 1 }}"><i class="fa fa-times"></i></button>
+            <button type="button" ng-click="resetFile(item)" class="btn btn-default pull-right" tabindex="{{ $index + 1 }}"><i class="fa fa-times"></i></button>
           </span>
         </div>
         <!-- user hasn't selected file yet -->
