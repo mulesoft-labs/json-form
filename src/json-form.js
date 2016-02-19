@@ -63,7 +63,8 @@ function JSONForm() {
 			schema: '=formSchema',
       valid: '=?formValid',
 			jsonForm: '=?formCtrl',
-			readOnly: '@?formReadonly'
+			readOnly: '@?formReadonly',
+      persistValues: '@?formPersistValues'
 		},
 		link: function(scope, element, attributes, ctrl) {
       // shortcuts
@@ -80,6 +81,12 @@ function JSONForm() {
         scope.readOnly = true;
       else
         scope.readOnly = false;
+
+      // persist values when hiding/disabling a field
+      if (scope.persistValues === 'true')
+        scope.persistValues = true;
+      else
+        scope.persistValues = false;
 
       // checks if a property is undefined or null, and fills it with a default value
       var defaults = function(item, prop, val){
@@ -254,7 +261,9 @@ function JSONForm() {
 
         if (disabled)
         {
-          delete scope.ngModel[item.name];
+          if (!scope.persistValues){
+            delete scope.ngModel[item.name];
+          }
         } else if (prev != disabled){
           if (item.default != null) {
           	scope.ngModel[item.name] = item.default;
@@ -274,7 +283,9 @@ function JSONForm() {
 
         if (!visible)
         {
-          delete scope.ngModel[item.name];
+          if (!scope.persistValues){
+            delete scope.ngModel[item.name];
+          }
         } else if (prev != visible) {
           if (item.default != null) {
         	   scope.ngModel[item.name] = item.default;
