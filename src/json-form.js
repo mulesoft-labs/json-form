@@ -250,8 +250,12 @@ function JSONForm() {
       // Returns whether an item should be disabled or not
       scope.isDisabled = function(item){
 
+        if (scope.persistValues !== 'true' && scope.persistValues !== true)
+          scope.persistValues = false;
+
         if (scope.readOnly !== 'true' && scope.readOnly !== true)
           scope.readOnly = false;
+
         if (scope.readOnly)
           return true;
 
@@ -259,16 +263,17 @@ function JSONForm() {
         var prev = typeof scope.disabled[item.name] == 'undefined' ? !value : !!scope.disabled[item.name];
         var disabled = scope.disabled[item.name] = !value;
 
-        if (disabled)
+        if (!scope.persistValues)
         {
-          if (!scope.persistValues){
+          if (disabled)
+          {
             delete scope.ngModel[item.name];
+          } else if (prev != disabled){
+            if (item.default != null) {
+            	scope.ngModel[item.name] = item.default;
+            }
+            scope.jsonForm[item.name].$setPristine();
           }
-        } else if (prev != disabled){
-          if (item.default != null) {
-          	scope.ngModel[item.name] = item.default;
-          }
-          scope.jsonForm[item.name].$setPristine();
         }
 
         return scope.disabled[item.name];
@@ -277,20 +282,24 @@ function JSONForm() {
       // Returns whether an item should be visible or not
       scope.isVisible = function(item){
 
+        if (scope.persistValues !== 'true' && scope.persistValues !== true)
+          scope.persistValues = false;
+
         var value = toBoolean(item.visible);
         var prev = typeof scope.visible[item.name] == 'undefined' ? value : !!scope.visible[item.name];
         var visible = scope.visible[item.name] = value;
 
-        if (!visible)
+        if (!scope.persistValues)
         {
-          if (!scope.persistValues){
+          if (!visible)
+          {
             delete scope.ngModel[item.name];
+          } else if (prev != visible) {
+            if (item.default != null) {
+          	   scope.ngModel[item.name] = item.default;
+            }
+            scope.jsonForm[item.name].$setPristine();
           }
-        } else if (prev != visible) {
-          if (item.default != null) {
-        	   scope.ngModel[item.name] = item.default;
-          }
-          scope.jsonForm[item.name].$setPristine();
         }
 
         return scope.visible[item.name];
@@ -405,8 +414,9 @@ function JSONForm() {
         return '';
       }
 
-      // make sure readOnly flag is a boolean
+      // make sure flags are boolean
       scope.readOnly = scope.readOnly == "true" || scope.readOnly == true;
+      scope.persistValues = scope.persistValues == "true" || scope.persistValues == true;
 
       // File utils
       scope.files = {};
