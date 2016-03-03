@@ -2,7 +2,7 @@
 <form name="jsonForm" class="jsonForm container-fluid" novalidate>
 
   <ng-form ng-repeat="item in schema | orderBy:'order'" ng-class="getClass(item)" name="{{item.name}}">
-    <div style="display: block" class="form-group row has-feedback" ng-class="{ 'is-centered': item.type != 'textarea' && item.type != 'radio'}" ng-show="isVisible(item)">
+    <div style="display: block" class="form-group row has-feedback" ng-class="{ 'is-centered': item.type != 'textarea' && item.type != 'radio', 'has-success': item.feedback && !jsonForm[item.name].$pending && jsonForm[item.name].$valid && jsonForm[item.name].$dirty }" ng-show="isVisible(item)">
       <!-- Label -->
       <label
         ng-if="item.type != 'checkbox'"
